@@ -1,18 +1,30 @@
 import React, { useState } from 'react';
 
 const EvaluateRule = () => {
-  const [ruleString, setRuleString] = useState('');
+  const [ruleName, setRuleName] = useState('');
   const [jsonData, setJsonData] = useState('');
   const [evaluationResult, setEvaluationResult] = useState(null);
 
-  const handleEvaluateRule = () => {
-    // Placeholder for rule evaluation logic
+  const handleEvaluateRule = async () => {
     try {
       const data = JSON.parse(jsonData);
-      // Simulate evaluation logic and update the result
-      setEvaluationResult(true); // Just a placeholder; actual logic will determine true/false
+      const response = await fetch('http://localhost:3000/api/rules/evaluate_rule', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ ast: ruleName, data }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const result = await response.json();
+      setEvaluationResult(result.result);
     } catch (error) {
-      setEvaluationResult('Invalid JSON');
+      console.error('Error:', error.message);
+      setEvaluationResult('Invalid JSON or Network Error');
     }
   };
 
@@ -20,11 +32,11 @@ const EvaluateRule = () => {
     <div style={{ padding: '20px', border: '1px solid #ddd' }}>
       <div>
         <label>
-          Rule String:
+          Rule Name:
           <input
             type="text"
-            value={ruleString}
-            onChange={(e) => setRuleString(e.target.value)}
+            value={ruleName}
+            onChange={(e) => setRuleName(e.target.value)}
           />
         </label>
       </div>
@@ -34,6 +46,7 @@ const EvaluateRule = () => {
           <textarea
             value={jsonData}
             onChange={(e) => setJsonData(e.target.value)}
+            placeholder='{"age": 35, "department": "Sales", "salary": 60000, "experience": 3}'
           />
         </label>
       </div>
@@ -42,7 +55,6 @@ const EvaluateRule = () => {
         {evaluationResult !== null && (
           <div>
             <h3>Evaluation Result</h3>
-            {/* Placeholder for evaluation result display */}
             <pre>{String(evaluationResult)}</pre>
           </div>
         )}
