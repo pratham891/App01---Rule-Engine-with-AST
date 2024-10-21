@@ -32,11 +32,11 @@ const CreateRule = () => {
     return (
       <div>
         <div>
-          {prefix + (isLeft ? '├─ ' : '└─ ') + `Type: ${node.type}, Value: ${node.value}`}
+          {prefix + (isLeft ? "├── " : "└── ") + (node.type === 'operator' ? node.operator : `${node.key} ${node.operator} ${node.value}`)}
         </div>
-        <div style={{ marginLeft: '20px' }}>
-          {node.left && renderAST(node.left, prefix + (isLeft ? '│  ' : '   '), true)}
-          {node.right && renderAST(node.right, prefix + (isLeft ? '│  ' : '   '), false)}
+        <div>
+          {node.left && renderAST(node.left, prefix + (isLeft ? '│   ' : '    '), true)}
+          {node.right && renderAST(node.right, prefix + (isLeft ? '│   ' : '    '), false)}
         </div>
       </div>
     );

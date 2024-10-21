@@ -53,7 +53,7 @@ function parseRuleString(ruleString) {
 
 function printTree(node, prefix = '', isLeft = true) {
   if (!node) return;
-  console.log(prefix + (isLeft ? "├── " : "└── ") + (node.type === 'operator' ? node.operator : `${node.key} ${node.operator} ${node.value}`));
+  // console.log(prefix + (isLeft ? "├── " : "└── ") + (node.type === 'operator' ? node.operator : `${node.key} ${node.operator} ${node.value}`));
   if (node.left) printTree(node.left, prefix + (isLeft ? "│   " : "    "), true);
   if (node.right) printTree(node.right, prefix + (isLeft ? "│   " : "    "), false);
 }
