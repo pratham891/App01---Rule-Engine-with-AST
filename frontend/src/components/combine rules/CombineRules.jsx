@@ -8,7 +8,7 @@ const CombineRules = () => {
 
   const handleCombineRules = async () => {
     try {
-      const response = await fetch('http://localhost:3000/api/rules/combine_rules', {
+      const response = await fetch('https://app01-rule-engine-with-ast.vercel.app/api/rules/combine_rules', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

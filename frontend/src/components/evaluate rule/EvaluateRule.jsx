@@ -8,7 +8,7 @@ const EvaluateRule = () => {
   const handleEvaluateRule = async () => {
     try {
       const data = JSON.parse(jsonData);
-      const response = await fetch('http://localhost:3000/api/rules/evaluate_rule', {
+      const response = await fetch('https://app01-rule-engine-with-ast.vercel.app/api/rules/evaluate_rule', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
