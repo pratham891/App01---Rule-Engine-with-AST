@@ -23,11 +23,11 @@ mongoose.connect('mongodb+srv://sanbox-user:HLbu9JqLvx8fVJmN@sandbox-cluster0.ck
 // Serve static files from the public directory
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Route for serving the index.html
-// app.get('/', (req, res) => {
-//   res.sendFile(path.join(__dirname, './views/index.html'));
-// });
 app.use('/api/rules', ruleRoutes);
+
+app.get("/", (req, res) => {
+  res.send(`backend server is running`);
+});
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
